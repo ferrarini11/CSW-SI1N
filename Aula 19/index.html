@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Idade</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    label, select, input, button {
+      display: block;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Calculadora de Idade</h2>
+
+  <label for="dia">Dia de nascimento:</label>
+  <input type="number" id="dia" min="00" max="31" required>
+
+  <label for="mes">Mês de nascimento:</label>
+  <select id="mes">
+    <option value="01">Janeiro</option>
+    <option value="02">Fevereiro</option>
+    <option value="03">Março</option>
+    <option value="04">Abril</option>
+    <option value="05">Maio</option>
+    <option value="06">Junho</option>
+    <option value="07">Julho</option>
+    <option value="08">Agosto</option>
+    <option value="09">Setembro</option>
+    <option value="10">Outubro</option>
+    <option value="11">Novembro</option>
+    <option value="12">Dezembro</option>
+  </select>
+
+  <label for="ano">Ano de nascimento:</label>
+  <input type="number" id="ano" min="" max="2100" required>
+
+  <button onclick="calcularIdade()">Calcular Idade</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function calcularIdade() {
+      const dia = parseInt(document.getElementById('dia').value);
+      const mes = parseInt(document.getElementById('mes').value);
+      const ano = parseInt(document.getElementById('ano').value);
+
+      const hoje = new Date();
+      const dataNascimento = new Date(ano, mes, dia);
+
+      let idade = hoje.getFullYear() - ano;
+
+      // Ajuste se ainda não fez aniversário neste ano
+      const aniversarioEsteAno = new Date(hoje.getFullYear(), mes, dia);
+      if (hoje < aniversarioEsteAno) {
+        idade--;
+      }
+
+      const resultado = document.getElementById('resultado');
+      if (!isNaN(idade) && idade >= 0) {
+        resultado.textContent = `Você tem ${idade} anos de idade.`;
+      } else {
+        resultado.textContent = "Por favor, insira uma data válida.";
+      }
+    }
+  </script>
+
+</body>
+</html>
